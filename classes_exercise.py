@@ -25,7 +25,7 @@ Methods:
 class Vehicle:
     """Represents a vehicle.
 
-    Attrubutes:
+    Attributes:
         name: The name of the vehicle.
         max_speed: The maximum speed the vehicle can go at.
         capacity: The amount of persons that can sit inside of the vehicle safely.
