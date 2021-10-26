@@ -56,8 +56,8 @@ class Bus(Vehicle):
 
         self.capacity = 30
 
-    def fare(self, age: float) -> None:
-        """Prints the bus fare depending on the age of the rider."""
+    def fare(self, age: float = 18) -> None:
+        """Prints the bus fare depending on the age of the rider. The default age is 18."""
 
         # The fare cost varies depending on rider age.
         if age < 18 or age > 60:
