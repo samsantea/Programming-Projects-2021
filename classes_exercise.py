@@ -39,34 +39,25 @@ class Vehicle:
         self.capacity = 4
 
     def vroom(self):
-        """Returns vroom max_speed times."""
+        """Vehicle goes vroom multiplied by the
+        amount of speed times."""
 
         print("vroom " * self.max_speed)
 
 class Bus(Vehicle):
-    """Represents a bus which is a type of vehicle.
-    """
-
-    def __init__(self):
-        """Creates a bus  with a default capacity of 30."""
-
-        # Call the superclass constructor
-
-        super().__init__()
-
-        self.capacity = 30
+    """Represents a bus that can drive
+    humans around in it"""
 
     def fare(self, age: float = 18) -> None:
-        """Prints the bus fare depending on the age of the rider. The default age is 18."""
+        """Tells how much fare is for a particular age."""
 
         # The fare cost varies depending on rider age.
-        if age < 18 or age > 60:
-            fare_cost = 0
-        elif age >= 18 and age <= 60:
-            fare_cost = 5
-
+        if 18 <= age <= 60:
+            print(f"The fare of the bus ride is $5.00. 🚌")
+        else:
+            print("You ride free! 🚌")
         # Print out the fare.
-        print(f"The fare of the bus ride is ${fare_cost}.")
+
 
 blue_car = Vehicle()
 print(blue_car.name)
@@ -89,3 +80,23 @@ print(yellow_bus.capacity)
 yellow_bus.fare(15)
 yellow_bus.fare(25)
 yellow_bus.fare(90)
+
+# Mr. Ubial's example
+
+a_vehicle = Vehicle()
+a_vehicle.name = "Le Ferrari"
+a_vehicle.max_speed = 372
+a_vehicle.capacity = 2
+a_vehicle.vroom()
+
+a_bus = Bus()
+a_bus.name = "TransLink Bus - 407"
+a_bus.capacity = 35
+a_bus.max_speed =  140
+a_bus.vroom()
+a_bus.fare(-1)
+a_bus.fare(0)
+a_bus.fare(17)
+a_bus.fare(18)
+a_bus.fare(60)
+a_bus.fare(61)
