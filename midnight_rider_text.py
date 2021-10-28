@@ -13,3 +13,9 @@ ONE GOAL: SURVIVAL AND THE CAR
 REACH THE SAFE HOUSE BEFORE THE MAN
 GON GETCHU.
 """
+
+CHOICES = """
+    ---
+    Q. Quit the game.
+    --- 
+"""
