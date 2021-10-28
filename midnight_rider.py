@@ -1,5 +1,8 @@
 # Midnight Rider
 
+import sys
+import textwrap
+import time
 import midnight_rider_text
 
 # A text-based game of intrigue and illusion
@@ -12,8 +15,14 @@ class Game:
     def introduction(self):
         """Print the introduction text"""
 
-        print(midnight_rider_text.INTRODUCTION)
+        self.typewriter_effect(midnight_rider_text.INTRODUCTION)
 
+    def typewriter_effect(self, text: str) -> None:
+        """Print out to console with a typewriter effect."""
+        for char in textwrap.dedent(text):
+            time.sleep(0.05)
+            sys.stdout.write(char)
+            sys.stdout.flush()
 
 # main() is the function that will do all of the main stuff
 # pass is a placeholder
