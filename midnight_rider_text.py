@@ -16,7 +16,12 @@ GON GETCHU.
 
 CHOICES = """
     --- Your Choices ---
+    D. Stop to refuel
     E. Current Status
-    Q. Quit the game.
+    Q. Quit the game
     --- 
+"""
+
+REFUEL = """--------You filled the fuel tank.
+-------The agents got closer...
 """
