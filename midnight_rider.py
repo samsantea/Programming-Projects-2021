@@ -70,13 +70,11 @@ class Game:
         agents_distance_now = random.randrange(7, 15)
 
         if user_choice == "a":
-            # TODO: Implement eating/hunger
             if self.amount_tofu > 0:
                 self.amount_tofu -= 1
 
                 self.hunger = 0
 
-                # TODO: Add text to midnight_rider_text.py
                 print(midnight_rider_text.EAT_TOFU)
 
             else:
@@ -140,9 +138,18 @@ class Game:
         elif user_choice == "q":
             self.done = True
 
-        def upkeep(self) -> None:
-            """Give the user reminders of hunger."""
-            pass
+
+        # Increase hunger
+        if user_choice in ["b", "c", "d"]:
+            self.hunger += random.randrange(8,18)
+
+    def upkeep(self) -> None:
+        """Give the user reminders of hunger."""
+
+        if self.hunger > 40:
+            print(midnight_rider_text.SEVERE_HUNGER)
+        elif self.hunger > 25:
+           print(midnight_rider_text.HUNGER)
 
 
 # main() is the function that will do all of the main stuff
