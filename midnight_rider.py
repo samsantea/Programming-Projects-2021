@@ -14,7 +14,9 @@ MAX_TOFU = 3
 MAX_HUNGER = 50
 
 ENDGAME_REASONS = {
-    "LOSE_AGENTS": 1
+    "LOSE_AGENTS": 1,
+    "LOSE_FUEL": 2,
+    "LOSE_HUNGER": 3
 }
 
 class Game:
@@ -166,19 +168,23 @@ class Game:
         """Check to see if win/lose conditions are met.
         If they're met, change the self.done flag."""
         # TODO: LOSE - Agents catch up to the player
+
+        # No elif no need to check all at once
+        # Bad code cuz coupled: need to change in many different places
+
         if self.agents_distance >= 0:
             # Allows us to quit the while loop
             self.done = True
             # Helps with printing the right ending
-            self.endgame_reason = ENDGAME_REASONS["LOSE_AGENTS"] # TODO
-        # TODO: LOSE - Fuel runs out
-        # elif self.fuel <= 0:
-        #     self.done = True
-        #     self.endgame_reason = ENDGAME_REASONS[]
-        # # TODO: LOSE - Perish because of hunger
-        # elif self.hunger >= 50:
-        #     self.done = True
-        #     self.endgame_reason = ENDGAME_REASONS[]
+            self.endgame_reason = ENDGAME_REASONS["LOSE_AGENTS"]
+
+        if self.fuel <= 0:
+            self.done = True
+            self.endgame_reason = ENDGAME_REASONS["LOSE_FUEL"]
+
+        if self.hunger > 50:
+            self.done = True
+            self.endgame_reason = ENDGAME_REASONS["LOSE_HUNGER"]
         # # TODO: WIN - Reach the goal
         # elif self.distance_traveled >= 100:
         #     self.done True
