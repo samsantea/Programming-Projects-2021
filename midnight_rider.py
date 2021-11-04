@@ -13,6 +13,10 @@ MAX_FUEL = 50
 MAX_TOFU = 3
 MAX_HUNGER = 50
 
+ENDGAME_REASONS = {
+    "LOSE_AGENTS": 1
+}
+
 class Game:
     """Represent our game engine
 
@@ -30,6 +34,8 @@ class Game:
             starts off at 50
         hunger: describes how hungry our player is represented by a number
             between 0 and 50. If hunger goes beyond 50, game is over.
+        endgame_reason: shows the index of the game ending
+        text from midnight_rider_text.py
     """
 
     def __init__(self):
@@ -39,6 +45,7 @@ class Game:
         self.agents_distance = -20
         self.fuel = MAX_FUEL
         self.hunger = 0
+        self.endgame_reason = 0
 
     def introduction(self):
         """Print the introduction text"""
@@ -137,7 +144,7 @@ class Game:
             time.sleep(2)
         elif user_choice == "q":
             self.done = True
-        time.sleep(2)
+        time.sleep(1)
 
         # Increase hunger
         if user_choice in ["b", "c", "d"]:
@@ -153,6 +160,29 @@ class Game:
 
     time.sleep(1)
 
+    time.sleep(1)
+
+    def check_endgame(self) -> None:
+        """Check to see if win/lose conditions are met.
+        If they're met, change the self.done flag."""
+        # TODO: LOSE - Agents catch up to the player
+        if self.agents_distance >= 0:
+            # Allows us to quit the while loop
+            self.done = True
+            # Helps with printing the right ending
+            self.endgame_reason = ENDGAME_REASONS["LOSE_AGENTS"] # TODO
+        # TODO: LOSE - Fuel runs out
+        # elif self.fuel <= 0:
+        #     self.done = True
+        #     self.endgame_reason = ENDGAME_REASONS[]
+        # # TODO: LOSE - Perish because of hunger
+        # elif self.hunger >= 50:
+        #     self.done = True
+        #     self.endgame_reason = ENDGAME_REASONS[]
+        # # TODO: WIN - Reach the goal
+        # elif self.distance_traveled >= 100:
+        #     self.done True
+
 # main() is the function that will do all of the main stuff
 
 # pass is a placeholder
@@ -165,7 +195,13 @@ def main() -> None:
         game.upkeep()
         game.show_choices()
         game.get_choices()
-        # TODO: Check win/lose conditions
+        game.check_endgame()
+
+    time.sleep(1)
+    # Print out the ending.
+    game.typewriter_effect(
+        midnight_rider_text.ENDGAME_TEXT[game.endgame_reason]
+    )
 
 if __name__ == "__main__":
     main()
