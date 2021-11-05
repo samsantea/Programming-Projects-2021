@@ -12,11 +12,13 @@ import midnight_rider_text
 MAX_FUEL = 50
 MAX_TOFU = 3
 MAX_HUNGER = 50
+MAX_DISTANCE = 100
 
 ENDGAME_REASONS = {
     "LOSE_AGENTS": 1,
     "LOSE_FUEL": 2,
-    "LOSE_HUNGER": 3
+    "LOSE_HUNGER": 3,
+    "WIN": 4
 }
 
 class Game:
@@ -109,7 +111,7 @@ class Game:
 
         elif user_choice == "c":
             # Move the player
-            player_distance_now = random.randrange(10, 16)
+            player_distance_now = random.randrange(7, 12)
 
             self.distance_traveled += player_distance_now
 
@@ -167,7 +169,6 @@ class Game:
     def check_endgame(self) -> None:
         """Check to see if win/lose conditions are met.
         If they're met, change the self.done flag."""
-        # TODO: LOSE - Agents catch up to the player
 
         # No elif no need to check all at once
         # Bad code cuz coupled: need to change in many different places
@@ -182,14 +183,15 @@ class Game:
             self.done = True
             self.endgame_reason = ENDGAME_REASONS["LOSE_FUEL"]
 
-        if self.hunger > 50:
+        if self.hunger > MAX_HUNGER:
             self.done = True
             self.endgame_reason = ENDGAME_REASONS["LOSE_HUNGER"]
-        # # TODO: WIN - Reach the goal
-        # elif self.distance_traveled >= 100:
-        #     self.done True
 
-# main() is the function that will do all of the main stuff
+        if self.distance_traveled >= MAX_DISTANCE:
+            self.done = True
+            self.endgame_reason = ENDGAME_REASONS["WIN"]
+
+# main() is the function that will do aTll of the main stuff
 
 # pass is a placeholder
 def main() -> None:
