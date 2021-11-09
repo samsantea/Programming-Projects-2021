@@ -17,8 +17,39 @@ BLUE = (0, 0, 255)
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 SCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
+WINDOW_TITLE = "Pygame Drawing"
 
 def main() -> None:
     """Driver of the Python script"""
+    # Create the screen
+    screen = pygame.display.set_mode(SCREEN_SIZE)
+    pygame.display.set_caption(WINDOW_TITLE)
+
+    # Create some local variables that describe the environment
+    done = False
+    clock = pygame.time.Clock()
+
+
+    # ------------ MAIN LOOP
+    while not done:
+        # Make space for the event listener    """Driver of the Python script"""
+        # ----------- EVENT LISTENER
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+        # ----------- CHANGE ENVIRONMENT
+
+        # --------------- DRAW THE ENVIRONMENT
+        screen.fill([WHITE]) # This is a fill with background colour
+
+        # Update the environment
+        pygame.display.flip()
+
+        # --------------- CLOCK TICK
+        clock.tick((75))
+
+
+def main() -> None:
+
     if __name__ == __main__:
         main()
