@@ -13,6 +13,7 @@ BLACK = (0,  0,   0)
 RED = (255, 0,  0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+TAN = (218, 146, 104)
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -29,7 +30,6 @@ def main() -> None:
     done = False
     clock = pygame.time.Clock()
 
-
     # ------------ MAIN LOOP
     while not done:
         # Make space for the event listener    """Driver of the Python script"""
@@ -40,7 +40,16 @@ def main() -> None:
         # ----------- CHANGE ENVIRONMENT
 
         # --------------- DRAW THE ENVIRONMENT
-        screen.fill([WHITE]) # This is a fill with background colour
+        screen.fill(WHITE) # This is a fill with background colour
+        for i in range(10):
+
+            pygame.draw.ellipse(screen, TAN, [200, 50, 300, 250])
+            pygame.draw.ellipse(screen, TAN, [160, 80, 80, 80])
+            pygame.draw.ellipse(screen, TAN, [465, 80, 80, 80])
+            pygame.draw.ellipse(screen, BLACK, [390, 190, 20, 20])
+            pygame.draw.ellipse(screen, BLACK, [300, 190, 20, 20])
+            pygame.draw.polygon(screen, BLACK, [[330, 220], [370, 220], [350, 240]])
+            # pygame.draw.arc(screen, BLACK, [[310, 230], [330, 250], [350, 230]], 0,p i)
 
         # Update the environment
         pygame.display.flip()
@@ -49,7 +58,5 @@ def main() -> None:
         clock.tick((75))
 
 
-def main() -> None:
-
-    if __name__ == __main__:
-        main()
+if __name__ == "__main__":
+    main()
