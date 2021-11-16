@@ -49,6 +49,25 @@ class Dvdimage:
         """Updates the Dvdimage with every tick"""
         # Update the x-coordinate
         self.x += self.x_vel
+        # If Dvdimage is too far to the left
+        if self.x + self.width > SCREEN_WIDTH:
+            # Keep the object inside the canvas
+            self.x = SCREEN_WIDTH - self.width
+            # Set the velocity to the negative
+            self.x_vel = -self.x_vel
+        elif self.x < 0:
+            self.x = 0
+            self.x_vel = -self.x_vel
+
+        if self.y + self.height > SCREEN_HEIGHT:
+            self.y = SCREEN_HEIGHT - self.height
+
+            self.y_vel = -self.y_vel
+        elif self.y < 0:
+            self.y = 0
+            self.y_vel = -self.y_vel
+
+        # If Dvd image is too far to the right
         # Update the y-coordinate
         self.y += self.y_vel
 
@@ -85,7 +104,7 @@ def main() -> None:
         pygame.display.flip()
 
         # ----------- CLOCK TICK
-        clock.tick(75)
+        clock.tick(60)
 
 
 if __name__ == "__main__":
