@@ -26,18 +26,20 @@ class Dvdimage:
 
     Attributes:
         x, y: coordinates of top-left corner
-        width: width of our rectangle in px
-        height: height of our rectangle in px
-        colour: a 3-tuple of (r, g, b)
+        width: width of image in px
+        height: height of image in px
+        img: visual representation of our Dvdimage
+        bg: background of our screen
         x_vel: velocity in px/sec
         y_vel: y velocity in px/sec
         """
 
     def __init__(self):
         self.x, self.y = (SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-        self.width = 150
-        self.height = 90
-        self.colour = PINK
+        self.width = 180
+        self.height = 180
+        self.img = pygame.image.load("./images/dvdimage.png")
+        self.bg = pygame.image.load("./images/1200px-SSBU-Dream_Land.png")
         self.x_vel = 5
         self.y_vel = 3
 
@@ -55,6 +57,7 @@ class Dvdimage:
             self.x = SCREEN_WIDTH - self.width
             # Set the velocity to the negative
             self.x_vel = -self.x_vel
+
         elif self.x < 0:
             self.x = 0
             self.x_vel = -self.x_vel
@@ -92,19 +95,20 @@ def main() -> None:
 
         # ----------- CHANGE ENVIRONMENT
 
-            dvd_image.update()
-            print(f"x: {dvd_image.x}, y: {dvd_image.y}")
+        dvd_image.update()
+        print(f"x: {dvd_image.x}, y: {dvd_image.y}")
 
         # ----------- DRAW THE ENVIRONMENT
-        screen.fill(BGCOLOUR)      # fill with bgcolor
+        screen.blit(dvd_image.bg, (0, 0))     # fill with bgcolor
 
-        pygame.draw.rect(screen, dvd_image.colour, dvd_image.rect())
+        # .blit(<surface/image>, coords)
+        screen.blit(dvd_image.img, (dvd_image.x, dvd_image.y))
 
         # Update the screen
         pygame.display.flip()
 
         # ----------- CLOCK TICK
-        clock.tick(60)
+        clock.tick(75)
 
 
 if __name__ == "__main__":
