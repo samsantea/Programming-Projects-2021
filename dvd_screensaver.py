@@ -15,8 +15,8 @@ BLUE  = (  0,   0, 255)
 BGCOLOUR = (100, 100, 255)
 PINK = (242, 186, 201)
 
-SCREEN_WIDTH  = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH  = 960
+SCREEN_HEIGHT = 540
 SCREEN_SIZE   = (SCREEN_WIDTH, SCREEN_HEIGHT)
 WINDOW_TITLE  = "DVD Screensaver"
 
@@ -29,7 +29,6 @@ class Dvdimage:
         width: width of image in px
         height: height of image in px
         img: visual representation of our Dvdimage
-        bg: background of our screen
         x_vel: velocity in px/sec
         y_vel: y velocity in px/sec
         """
@@ -39,7 +38,6 @@ class Dvdimage:
         self.width = 180
         self.height = 180
         self.img = pygame.image.load("./images/dvdimage.png")
-        self.bg = pygame.image.load("./images/1200px-SSBU-Dream_Land.png")
         self.x_vel = 5
         self.y_vel = 3
 
@@ -85,6 +83,9 @@ def main() -> None:
     done = False
     clock = pygame.time.Clock()
     dvd_image = Dvdimage()
+    bg_image = pygame.image.load('./images/shubham-dhage-0TUiUeLul-Y-unsplash.jpg')
+
+    bg_image = pygame.transform.scale(bg_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
     # ----------- MAIN LOOP
     while not done:
@@ -96,10 +97,10 @@ def main() -> None:
         # ----------- CHANGE ENVIRONMENT
 
         dvd_image.update()
-        print(f"x: {dvd_image.x}, y: {dvd_image.y}")
 
         # ----------- DRAW THE ENVIRONMENT
-        screen.blit(dvd_image.bg, (0, 0))     # fill with bgcolor
+        # Draw the background image
+        screen.blit(bg_image, (0, 0))
 
         # .blit(<surface/image>, coords)
         screen.blit(dvd_image.img, (dvd_image.x, dvd_image.y))
