@@ -45,8 +45,8 @@ class Snowflake:
     def update(self):
         """Update the location of the snow"""
 
-        # self.coords[1] += self.y_vel
-        self.coords[0] += self.x_vel
+        self.coords[1] += self.y_vel
+        # self.coords[0] += self.x_vel
 
         # reset position of snowflake if it reaches bottom
         if self.coords[1] == SCREEN_HEIGHT:
