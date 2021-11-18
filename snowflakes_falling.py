@@ -49,7 +49,7 @@ class Snowflake:
         # self.coords[0] += self.x_vel
 
         # reset position of snowflake if it reaches bottom
-        if self.coords[1] == SCREEN_HEIGHT:
+        if self.coords[1] >= SCREEN_HEIGHT:
             self.coords = [
                 random.randrange(0, SCREEN_WIDTH),
                 random.randrange(-15, 0)
