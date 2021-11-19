@@ -72,16 +72,25 @@ def main() -> None:
 
     # Create snowflakes in foreground
     snowflakes = []
-    for i in range(100):
+    for i in range(num_snowflakes-150):
         close_snowflake = Snowflake()
-        close_snowflake.size = 3
-        close_snowflake.y_vel = 3
+        close_snowflake.size = random.choice([4, 5, 6])
+        close_snowflake.y_vel = random.choice([3, 4])
         snowflakes.append(close_snowflake)
+
+    # Create regular snowflakes
+    for i in range(num_snowflakes-100):
+        mid_snowflake = Snowflake()
+        mid_snowflake.size = random.choice([2, 3, 4])
+        mid_snowflake.y_vel = random.choice([2, 3])
 
     # Create snowflakes in background
 
     for i in range(num_snowflakes):
-        snowflakes.append(Snowflake())
+        far_snowflake = Snowflake()
+        far_snowflake_size = random.choice([1, 2])
+        far_snowflake.y_vel = random.choice([1, 2])
+        snowflakes.append(far_snowflake)
 
     # ----------- MAIN LOOP
     while not done:
