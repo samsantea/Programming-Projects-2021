@@ -24,6 +24,29 @@ SCREEN_SIZE   = (SCREEN_WIDTH, SCREEN_HEIGHT)
 WINDOW_TITLE  = "Collecting blocks"
 
 
+class Player(pygame.sprite.Sprite):
+    """ Describes a block object
+    A subclass of pygame.sprite.Sprite
+
+    Attributes:
+        image: Surface that is the visual
+            representation of our Block
+        rect: numerical representation of
+            our Block [x, y, width, height]"""
+
+    def __init__(self, width: int, height: int) -> None:
+        # Call the superclass contructor
+        super().__init__()
+
+        # Create the image of the block
+        self.image = pygame.transform.scale(
+            pygame.image.load("./images/kirby.png"),
+            (width, height)
+        )
+
+        # Based on the image, create a Rect for the block
+        self.rect = self.image.get_rect()
+
 
 class Block(pygame.sprite.Sprite):
     """ Describes a block object
@@ -49,11 +72,6 @@ class Block(pygame.sprite.Sprite):
         # Create the image of the block
         self.image = pygame.Surface([width, height])
         self.image.fill(colour)
-        # self.image = pygame.transform.scale(
-        #     pygame.image.load("./images/kirby.png"),
-        #     (width, height)
-        # )
-
 
         # Based on the image, create a Rect for the block
         self.rect = self.image.get_rect()
@@ -70,6 +88,7 @@ def main() -> None:
     done = False
     clock = pygame.time.Clock()
     num_blocks = 100
+    score = 0
 
     # Create a group of sprites to hold Sprites
     all_sprites = pygame.sprite.Group()
@@ -90,7 +109,7 @@ def main() -> None:
         all_sprites.add(block)
 
     # Create the Player block
-    player = Block(AQUAMARINE, 20, 15)
+    player = Player(21, 18)
 
     all_sprites.add(player)
 
@@ -106,7 +125,14 @@ def main() -> None:
         # ----------- CHANGE ENVIRONMENT
         # Process player movement based on mouse pos
         mouse_pos = pygame.mouse.get_pos()
-        player.rect = mouse_pos
+        player.rect.x, player.rect.y = mouse_pos
+
+        # Check all collisions between player and the blocks
+        blocks_collided = pygame.sprite.spritecollide(player, block_sprites, True)
+
+        for block in blocks_collided:
+            score += 1
+            print(f"Score: {score}")
 
         # ----------- DRAW THE ENVIRONMENT
         # Draw the background image
