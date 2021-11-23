@@ -18,8 +18,8 @@ AQUAMARINE = (65, 226, 186)
 PURPLE = (98, 0, 179)
 BGCOLOUR = WHITE
 
-SCREEN_WIDTH  = 960
-SCREEN_HEIGHT = 540
+SCREEN_WIDTH  = 800
+SCREEN_HEIGHT = 600
 SCREEN_SIZE   = (SCREEN_WIDTH, SCREEN_HEIGHT)
 WINDOW_TITLE  = "Collecting blocks"
 
@@ -69,12 +69,28 @@ def main() -> None:
     # Create some local variables that describe the environment
     done = False
     clock = pygame.time.Clock()
+    num_blocks = 100
 
-    # Create a group of sprites to store ALL SPRITES
+    # Create a group of sprites to hold Sprites
     all_sprites = pygame.sprite.Group()
+    block_sprites = pygame.sprite.Group()
+
+    # Create all the block sprites and add to block_sprites
+
+    for i in range(num_blocks):
+        # Create a block (set its parameters)
+        block = Block(MIDDLE_YELLOW, 20, 15)
+        # Set a random location for the block inside the screen
+        block.rect.x = random.randrange(SCREEN_WIDTH - block.rect.width)
+        block.rect.y = random.randrange(SCREEN_HEIGHT - block.rect.height)
+        # Add the block to the block_sprites Group
+        block_sprites.add(block)
+
+        # Add the block to the all_sprites Group
+        all_sprites.add(block)
 
     # Create the Player block
-    player = Block(AQUAMARINE, 42,36)
+    player = Block(AQUAMARINE, 20, 15)
 
     all_sprites.add(player)
 
