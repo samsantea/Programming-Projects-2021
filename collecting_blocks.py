@@ -105,6 +105,28 @@ class Enemy(pygame.sprite.Sprite):
         self.x_vel = random.choice([-4, -3, 3, 4])
         self.y_vel = random.choice([-4, -3, 3, 4])
 
+    def update(self):
+        """Calculate movement"""
+        # Update the x-coordinate
+        self.rect.x += self.x_vel
+        self.rect.y += self.y_vel
+
+        # Constrain movement
+        # X -
+        if self.rect.left < 0:
+            self.rect.x = 0
+            self.x_vel = -self.x_vel
+        elif self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
+            self.x_vel = -self.x_vel
+        # Y -
+        if self.rect.y < 0:
+            self.rect.y = 0
+            self.y_vel = -self.y_vel
+        elif self.rect.bottom > SCREEN_HEIGHT:
+            self.rect.bottom = SCREEN_HEIGHT
+            self.y_vel = -self.y_vel
+
 def main() -> None:
     """Driver of the Python script"""
     # Create the screen
@@ -159,6 +181,8 @@ def main() -> None:
                 done = True
 
         # ----------- CHANGE ENVIRONMENT
+
+        all_sprites.update()
 
         # Process player movement based on mouse pos
         mouse_pos = pygame.mouse.get_pos()
