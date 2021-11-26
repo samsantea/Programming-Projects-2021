@@ -2,6 +2,7 @@
 # Author: Sam
 # 2021 Version
 
+import time
 import random
 import pygame
 
@@ -186,7 +187,7 @@ def main() -> None:
 
         # Process player movement based on mouse pos
         mouse_pos = pygame.mouse.get_pos()
-        player.rect.x, player.rect.y = mouse_pos
+        player.rect.x, player.rect.y = mouse_pos[0] - player.rect.width / 2, mouse_pos[1] - player.rect.height / 2
 
         # Check all collisions between player and the blocks
         blocks_collided = pygame.sprite.spritecollide(player, block_sprites, True)
