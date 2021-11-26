@@ -76,7 +76,34 @@ class Block(pygame.sprite.Sprite):
         # Based on the image, create a Rect for the block
         self.rect = self.image.get_rect()
 
+class Enemy(pygame.sprite.Sprite):
+    """The enemy sprites
 
+    Attributes:
+        image: Surface that is the visual representation
+        rect: (x, y, width, height)
+        x_vel: x velocity
+        y_vel: y velocity
+    """
+    def __init__(self):
+        super().__init__()
+
+        self.image = pygame.transform.scale(
+            pygame.image.load("./images/waddle-dee.png"),
+            (50, 44)
+        )
+
+        self.rect = self.image.get_rect()
+
+        self.rect.x, self.rect.y = (
+            random.randrange(SCREEN_WIDTH - self.rect.width),
+            random.randrange(SCREEN_HEIGHT - self.rect.height)
+        )
+
+        # Define the initial velocity
+
+        self.x_vel = random.choice([-4, -3, 3, 4])
+        self.y_vel = random.choice([-4, -3, 3, 4])
 
 def main() -> None:
     """Driver of the Python script"""
@@ -88,11 +115,13 @@ def main() -> None:
     done = False
     clock = pygame.time.Clock()
     num_blocks = 100
+    num_enemies = 10
     score = 0
 
     # Create a group of sprites to hold Sprites
     all_sprites = pygame.sprite.Group()
     block_sprites = pygame.sprite.Group()
+    enemy_sprites = pygame.sprite.Group()
 
     # Create all the block sprites and add to block_sprites
 
@@ -108,8 +137,15 @@ def main() -> None:
         # Add the block to the all_sprites Group
         all_sprites.add(block)
 
+    for i in range(num_enemies):
+        # Create an enemy
+        enemy = Enemy()
+        # Add it to the sprites list (enemy_sprites and all_sprites)
+        enemy_sprites.add(enemy)
+        all_sprites.add(enemy)
+
     # Create the Player block
-    player = Player(21, 18)
+    player = Player(50,48)
 
     all_sprites.add(player)
 
@@ -123,6 +159,7 @@ def main() -> None:
                 done = True
 
         # ----------- CHANGE ENVIRONMENT
+
         # Process player movement based on mouse pos
         mouse_pos = pygame.mouse.get_pos()
         player.rect.x, player.rect.y = mouse_pos
