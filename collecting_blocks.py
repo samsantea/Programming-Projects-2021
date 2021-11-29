@@ -196,6 +196,12 @@ def main() -> None:
             score += 1
             print(f"Score: {score}")
 
+        enemies_collided = pygame.sprite.spritecollide(player, enemy_sprites, False)
+
+        for enemy in enemies_collided:
+            done = True
+            print("GAME OVER")
+
         # ----------- DRAW THE ENVIRONMENT
         # Draw the background image
         screen.fill(BGCOLOUR)
