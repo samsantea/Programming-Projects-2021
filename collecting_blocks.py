@@ -140,6 +140,10 @@ def main() -> None:
     num_blocks = 100
     num_enemies = 10
     score = 0
+    time_start = time.time()
+    time_invincible = 5
+
+    font = pygame.font.SysFont("Arial", 25)
 
     # Create a group of sprites to hold Sprites
     all_sprites = pygame.sprite.Group()
@@ -198,9 +202,12 @@ def main() -> None:
 
         enemies_collided = pygame.sprite.spritecollide(player, enemy_sprites, False)
 
-        for enemy in enemies_collided:
-            done = True
-            print("GAME OVER")
+        # Set a time for invincibility at the beginning of the game
+
+        if time.time() - time_start > time_invincible:
+            for enemy in enemies_collided:
+                done = True
+                print("GAME OVER")
 
         # ----------- DRAW THE ENVIRONMENT
         # Draw the background image
@@ -208,6 +215,12 @@ def main() -> None:
 
         # Draw all sprites
         all_sprites.draw(screen)
+
+        # Draw the score on the screen
+        screen.blit(
+            font.render(f"Score: {score}", True, BLACK),
+            (5, 5)
+        )
 
         # Update the screen
         pygame.display.flip()
