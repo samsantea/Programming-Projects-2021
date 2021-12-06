@@ -58,7 +58,6 @@ class Player(pygame.sprite.Sprite):
         """Return the percent of health remaining"""
         return self.hp / 25
 
-
 class Block(pygame.sprite.Sprite):
     """ Describes a block object
     A subclass of pygame.sprite.Sprite
@@ -254,9 +253,6 @@ def main() -> None:
             for enemy in enemies_collided:
                 player.hp -= 1
                 # done = True
-                print(player.hp)
-
-
 
         # ----------- DRAW THE ENVIRONMENT
         # Draw the background image
@@ -272,6 +268,10 @@ def main() -> None:
         # Draw the foreground rectangle which represents the remaining health
         life_remaining = 215 - int(215 * player.hp_remaining())
 
+        # Keeps bar at proper length
+        if life_remaining > 215:
+            life_remaining = 215
+
         pygame.draw.rect(screen, CYCLAMEN, [580, 5, life_remaining, 20])
 
         # Draw the score on the screen
@@ -281,16 +281,28 @@ def main() -> None:
             (5, 5)
         )
 
+        if time.time() - time_start <= time_invincible:
+            screen.blit(
+                font.render("Welcome to Collecting Blocks!", True, BLACK),
+                (SCREEN_WIDTH / 3.5, SCREEN_HEIGHT / 3)
+            )
+
+            screen.blit(
+                font.render("Evade the Waddle Dees and collect all the blocks to win!",
+                            True, BLACK),
+                (SCREEN_WIDTH / 9, SCREEN_HEIGHT / 2.5)
+            )
+
         # if we've won, draw the text on the screen
         if game_state == "won":
             screen.blit(
                 font.render(endgame_messages["win"], True, AQUAMARINE),
-                (SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2)
+                (SCREEN_WIDTH / 3.5, SCREEN_HEIGHT / 2.5)
             )
         elif game_state == "lost":
             screen.blit(
                 font.render(endgame_messages["lose"], True, CYCLAMEN),
-                (SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2)
+                (SCREEN_WIDTH / 3.5, SCREEN_HEIGHT / 2.5)
             )
 
         # Update the screen
