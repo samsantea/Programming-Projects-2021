@@ -169,15 +169,6 @@ def main() -> None:
     enemy_sprites = pygame.sprite.Group()
     bullet_sprites = pygame.sprite.Group()
 
-    # Create all the block sprites and add to block_sprites
-
-    for i in range(num_enemies):
-        # Create an enemy
-        enemy = Enemy()
-        # Add it to the sprites list (enemy_sprites and all_sprites)
-        enemy_sprites.add(enemy)
-        all_sprites.add(enemy)
-
     # Create the Player block
     player = Player(50,48)
 
@@ -206,20 +197,6 @@ def main() -> None:
 
         # End-game listener
         # Order of conditions matters
-
-        if len(enemy_sprites) == 0:
-            game_state = "won"
-
-            if time_ended == 0:
-                time_ended = time.time()
-
-            # Set parameters to keep the screen alive
-
-            # Wait 4 seconds to kill the screen
-            if time.time() - time_ended >= endgame_cooldown:
-                done = True
-
-
         if player.hp_remaining() < 0:
             game_state = "lost"
 
@@ -239,6 +216,19 @@ def main() -> None:
         # Process player movement based on mouse pos
         mouse_pos = pygame.mouse.get_pos()
         player.rect.x, player.rect.y = mouse_pos[0] - player.rect.width / 2, mouse_pos[1] - player.rect.height / 2
+
+        # Check numbers of enemies currently on the screen
+        if len(enemy_sprites) < 1:
+            # Create enemy sprites
+            for i in range(num_enemies):
+                # Create an enemy
+                enemy = Enemy()
+                # Add it to the sprites list (enemy_sprites and all_sprites)
+                enemy_sprites.add(enemy)
+                all_sprites.add(enemy)
+
+            # Scale the degree of difficulty
+            num_enemies += 5
 
         # Check all collisions between player and the blocks
 
@@ -323,6 +313,17 @@ def main() -> None:
         # ----------- CLOCK TICK
         clock.tick(75)
 
+    # Clean up
+
+    # Update the high score if the current score is the highest
+    with open("./data/shootemup_highscore.txt") as f:
+        high_score = int(f.readline().strip())
+
+    with open("./data/shootemup_highscore.txt", "w") as f:
+        if score > high_score:
+            f.write(str(score)
+        else:
+            f.write(str(high_score))
 
 if __name__ == "__main__":
     main()
