@@ -321,7 +321,7 @@ def main() -> None:
 
     with open("./data/shootemup_highscore.txt", "w") as f:
         if score > high_score:
-            f.write(str(score)
+            f.write(str(score))
         else:
             f.write(str(high_score))
 
